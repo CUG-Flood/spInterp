@@ -72,7 +72,14 @@ center of a search radius.</p>
   <span class="va">...</span>
 <span class="op">)</span>
 
-<span class="fu">spInterp_adw</span><span class="op">(</span><span class="va">points</span>, <span class="va">dat</span>, <span class="va">range</span>, res <span class="op">=</span> <span class="fl">1</span>, <span class="va">...</span><span class="op">)</span></code></pre></div>
+<span class="fu">spInterp_adw</span><span class="op">(</span>
+  <span class="va">points</span>,
+  <span class="va">dat</span>,
+  <span class="va">range</span>,
+  res <span class="op">=</span> <span class="fl">1</span>,
+  fun.weight <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"weight_adw"</span>, <span class="st">"weight_adw_sf"</span><span class="op">)</span>,
+  <span class="va">...</span>
+<span class="op">)</span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -152,10 +159,18 @@ interpolation, (default 3).</p></dd>
 <span class="r-in"><span class="va">df</span> <span class="op">=</span> <span class="va">r</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/exposition.html" class="external-link">%$%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">cbind</a></span><span class="op">(</span><span class="va">coord</span>, value <span class="op">=</span> <span class="va">predicted</span><span class="op">[</span>, <span class="fl">1</span><span class="op">]</span><span class="op">)</span></span>
 <span class="r-in"><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="va">df</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span><span class="va">lon</span>, <span class="va">lat</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span class="r-in">  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_tile.html" class="external-link">geom_raster</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>fill <span class="op">=</span> <span class="va">value</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
-<span class="r-in">  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html" class="external-link">geom_point</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">loc</span>, size <span class="op">=</span> <span class="fl">2.5</span>, shape <span class="op">=</span> <span class="fl">3</span>, color <span class="op">=</span> <span class="st">"red"</span><span class="op">)</span> <span class="op">+</span></span>
+<span class="r-in">  <span class="co"># geom_point(data = loc, size = 2.5, shape = 3, color = "red") +</span></span>
 <span class="r-in">  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/lims.html" class="external-link">lims</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">range</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">2</span><span class="op">]</span>, y <span class="op">=</span> <span class="va">range</span><span class="op">[</span><span class="fl">3</span><span class="op">:</span><span class="fl">4</span><span class="op">]</span><span class="op">)</span></span>
 <span class="r-plt img"><img src="spInterp_adw-1.png" alt="" width="700" height="433"></span>
 <span class="r-in"></span>
+<span class="r-in"></span>
+<span class="r-in"><span class="va">r_sf</span> <span class="op">=</span> <span class="fu">spInterp_adw</span><span class="op">(</span><span class="va">loc</span>, <span class="va">dat</span>, <span class="va">range</span>, res <span class="op">=</span> <span class="fl">1</span>, cdd <span class="op">=</span> <span class="fl">450</span>, fun.weight <span class="op">=</span> <span class="st">"weight_adw_sf"</span><span class="op">)</span></span>
+<span class="r-in"><span class="va">df_sf</span> <span class="op">=</span> <span class="va">r_sf</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/exposition.html" class="external-link">%$%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">cbind</a></span><span class="op">(</span><span class="va">coord</span>, value <span class="op">=</span> <span class="va">predicted</span><span class="op">[</span>, <span class="fl">1</span><span class="op">]</span><span class="op">)</span></span>
+<span class="r-in"><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="va">df_sf</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span><span class="va">lon</span>, <span class="va">lat</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span class="r-in">  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_tile.html" class="external-link">geom_raster</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>fill <span class="op">=</span> <span class="va">value</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span class="r-in">  <span class="co"># geom_point(data = loc, size = 2.5, shape = 3, color = "red") +</span></span>
+<span class="r-in">  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/lims.html" class="external-link">lims</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">range</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">2</span><span class="op">]</span>, y <span class="op">=</span> <span class="va">range</span><span class="op">[</span><span class="fl">3</span><span class="op">:</span><span class="fl">4</span><span class="op">]</span><span class="op">)</span></span>
+<span class="r-plt img"><img src="spInterp_adw-2.png" alt="" width="700" height="433"></span>
 <span class="r-in"></span>
 <span class="r-in"><span class="co"># set cdd = 1000</span></span>
 <span class="r-in"><span class="va">r</span> <span class="op">=</span> <span class="fu">spInterp_adw</span><span class="op">(</span><span class="va">loc</span>, <span class="va">dat</span>, <span class="va">range</span>, res <span class="op">=</span> <span class="fl">1</span>, cdd <span class="op">=</span> <span class="fl">1000</span><span class="op">)</span></span>
@@ -165,7 +180,7 @@ interpolation, (default 3).</p></dd>
 <span class="r-in">  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_tile.html" class="external-link">geom_raster</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>fill <span class="op">=</span> <span class="va">value</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span class="r-in">  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html" class="external-link">geom_point</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">loc</span>, size <span class="op">=</span> <span class="fl">2.5</span>, shape <span class="op">=</span> <span class="fl">3</span>, color <span class="op">=</span> <span class="st">"red"</span><span class="op">)</span> <span class="op">+</span> </span>
 <span class="r-in">  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/lims.html" class="external-link">lims</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">range</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">2</span><span class="op">]</span>, y <span class="op">=</span> <span class="va">range</span><span class="op">[</span><span class="fl">3</span><span class="op">:</span><span class="fl">4</span><span class="op">]</span><span class="op">)</span></span>
-<span class="r-plt img"><img src="spInterp_adw-2.png" alt="" width="700" height="433"></span>
+<span class="r-plt img"><img src="spInterp_adw-3.png" alt="" width="700" height="433"></span>
 </code></pre></div>
     </div>
   </div>
