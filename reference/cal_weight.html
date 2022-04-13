@@ -52,7 +52,7 @@
   m <span class="op">=</span> <span class="fl">4</span>,
   nstation.max <span class="op">=</span> <span class="fl">8</span>,
   nstation.min <span class="op">=</span> <span class="fl">3</span>,
-  wFUN <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"wFUN_adw"</span>, <span class="st">"wFUN_idw"</span><span class="op">)</span>,
+  wFUN <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"wFUN_adw"</span>, <span class="st">"wFUN_idw"</span>, <span class="st">"wFUN_thiessen"</span>, <span class="st">"wFUN_mean"</span><span class="op">)</span>,
   .progress <span class="op">=</span> <span class="st">"none"</span>,
   <span class="va">...</span>
 <span class="op">)</span>
@@ -65,7 +65,7 @@
   m <span class="op">=</span> <span class="fl">4</span>,
   nstation.max <span class="op">=</span> <span class="fl">8</span>,
   nstation.min <span class="op">=</span> <span class="fl">3</span>,
-  wFUN <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"wFUN_adw"</span>, <span class="st">"wFUN_idw"</span><span class="op">)</span>,
+  wFUN <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"wFUN_adw"</span>, <span class="st">"wFUN_idw"</span>, <span class="st">"wFUN_thiessen"</span>, <span class="st">"wFUN_mean"</span><span class="op">)</span>,
   .progress <span class="op">=</span> <span class="st">"none"</span>,
   <span class="va">...</span>
 <span class="op">)</span></code></pre></div>
@@ -90,6 +90,8 @@ interpolation, (default 8).</p></dd>
 <dt>nstation.min</dt>
 <dd><p>Number of minimum stations used per point for
 interpolation, (default 3).</p></dd>
+<dt>wFUN</dt>
+<dd><p><code>wFUN_*</code> functions, see <code><a href="wFUN.html">wFUN()</a></code> for details</p></dd>
 <dt>.progress</dt>
 <dd><p>name of the progress bar to use, see
 <code><a href="https://rdrr.io/pkg/plyr/man/create_progress_bar.html" class="external-link">create_progress_bar</a></code></p></dd>

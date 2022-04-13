@@ -54,7 +54,7 @@ center of the search radius <code>cdd</code>.</p>
   <span class="va">range</span>,
   res <span class="op">=</span> <span class="fl">1</span>,
   fun.weight <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"cal_weight"</span>, <span class="st">"cal_weight_sf"</span><span class="op">)</span>,
-  wFUN <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"wFUN_adw"</span>, <span class="st">"wFUN_idw"</span><span class="op">)</span>,
+  wFUN <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"wFUN_adw"</span>, <span class="st">"wFUN_idw"</span>, <span class="st">"wFUN_thiessen"</span>, <span class="st">"wFUN_mean"</span><span class="op">)</span>,
   <span class="va">...</span>
 <span class="op">)</span>
 
@@ -82,7 +82,7 @@ center of the search radius <code>cdd</code>.</p>
 <dd><p>function to calculate weight, one of
 <code>c("cal_weight", "cal_weight_sf")</code>.</p></dd>
 <dt>wFUN</dt>
-<dd><p>one of <code>wFUN_adw</code>, <code>wFUN_idw</code>, see <code><a href="wFUN.html">wFUN()</a></code> for details</p></dd>
+<dd><p><code>wFUN_*</code> functions, see <code><a href="wFUN.html">wFUN()</a></code> for details</p></dd>
 <dt>...</dt>
 <dd><p>other parameters to <a href="https://rdrr.io/pkg/plyr/man/ldply.html" class="external-link">plyr::ldply</a></p></dd>
 </dl></div>

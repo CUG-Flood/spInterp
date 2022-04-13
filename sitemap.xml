@@ -10,13 +10,16 @@
     <loc>/index.html</loc>
   </url>
   <url>
-    <loc>/reference/cal_azimuth.html</loc>
+    <loc>/reference/angle.html</loc>
   </url>
   <url>
     <loc>/reference/cal_weight.html</loc>
   </url>
   <url>
     <loc>/reference/index.html</loc>
+  </url>
+  <url>
+    <loc>/reference/make_grid.html</loc>
   </url>
   <url>
     <loc>/reference/reexports.html</loc>
