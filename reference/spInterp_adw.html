@@ -123,23 +123,35 @@ interpolation, (default 3).</p></dd>
 <span class="r-in"><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">TempBrazil</span><span class="op">)</span> <span class="co"># Temperature for some poins of Brazil</span></span>
 <span class="r-in"></span>
 <span class="r-in"><span class="va">loc</span> <span class="op">&lt;-</span> <span class="va">TempBrazil</span><span class="op">[</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">2</span><span class="op">]</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu">set_names</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"lon"</span>, <span class="st">"lat"</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in set_names(., c("lon", "lat")):</span> could not find function "set_names"</span>
 <span class="r-in"><span class="va">dat</span> <span class="op">&lt;-</span> <span class="va">TempBrazil</span><span class="op">[</span>, <span class="fl">3</span><span class="op">]</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">as.matrix</a></span><span class="op">(</span><span class="op">)</span>  <span class="co"># Vector with observations in points</span></span>
 <span class="r-in"></span>
 <span class="r-in"><span class="va">range</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">78</span>, <span class="op">-</span><span class="fl">34</span>, <span class="op">-</span><span class="fl">36</span>, <span class="fl">5</span><span class="op">)</span></span>
 <span class="r-in"><span class="co"># weight &lt;- weight_adw(loc, range = range, res = 1)</span></span>
 <span class="r-in"><span class="va">r</span> <span class="op">=</span> <span class="fu">spInterp_adw</span><span class="op">(</span><span class="va">loc</span>, <span class="va">dat</span>, <span class="va">range</span>, res <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in check_matrix(.):</span> object 'loc' not found</span>
 <span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">r</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in str(r):</span> object 'r' not found</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> List of 3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  $ weight   :Classes ‘data.table’ and 'data.frame':	6349 obs. of  4 variables:</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ lon: num [1:6349] -55.5 -55.5 -55.5 -54.5 -54.5 -54.5 -53.5 -53.5 -53.5 -52.5 ...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ lat: num [1:6349] -34.5 -34.5 -34.5 -34.5 -34.5 -34.5 -34.5 -34.5 -34.5 -34.5 ...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ I  : int [1:6349] 220 21 213 220 213 21 220 213 21 220 ...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ w  : num [1:6349] 0.1573 0.0418 0.0246 0.2879 0.0429 ...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..- attr(*, ".internal.selfref")=&lt;externalptr&gt; </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  $ coord    :Classes ‘data.table’ and 'data.frame':	932 obs. of  2 variables:</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ lon: num [1:932] -73.5 -73.5 -73.5 -73.5 -72.5 -72.5 -72.5 -72.5 -72.5 -72.5 ...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ lat: num [1:932] -8.5 -7.5 -6.5 -5.5 -9.5 -8.5 -7.5 -6.5 -5.5 -4.5 ...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..- attr(*, ".internal.selfref")=&lt;externalptr&gt; </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..- attr(*, "sorted")= chr [1:2] "lon" "lat"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  $ predicted: num [1:932, 1] 12.03 13.96 9.91 6.66 10.52 ...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..- attr(*, "dimnames")=List of 2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .. ..$ : NULL</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .. ..$ : chr "1"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> NULL</span>
 <span class="r-in"></span>
 <span class="r-in"><span class="va">df</span> <span class="op">=</span> <span class="va">r</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/exposition.html" class="external-link">%$%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">cbind</a></span><span class="op">(</span><span class="va">coord</span>, value <span class="op">=</span> <span class="va">predicted</span><span class="op">[</span>, <span class="fl">1</span><span class="op">]</span><span class="op">)</span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in base::with(., cbind(coord, value = predicted[, 1])):</span> object 'r' not found</span>
 <span class="r-in"><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="va">df</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span><span class="va">lon</span>, <span class="va">lat</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span class="r-in">  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_tile.html" class="external-link">geom_raster</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>fill <span class="op">=</span> <span class="va">value</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span class="r-in">  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html" class="external-link">geom_point</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">loc</span>, size <span class="op">=</span> <span class="fl">2.5</span>, shape <span class="op">=</span> <span class="fl">3</span>, color <span class="op">=</span> <span class="st">"red"</span><span class="op">)</span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in ggplot(df, aes(lon, lat)):</span>   You're passing a function as global data.</span>
-<span class="r-err co"><span class="r-pr">#&gt;</span>   Have you misspelled the `data` argument in `ggplot()`</span>
+<span class="r-plt img"><img src="spInterp_adw-1.png" alt="" width="700" height="433"></span>
 </code></pre></div>
     </div>
   </div>
