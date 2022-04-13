@@ -130,11 +130,13 @@ interpolation, (default 3).</p></dd>
 <span class="r-in"><span class="va">r</span> <span class="op">=</span> <span class="fu">spInterp_adw</span><span class="op">(</span><span class="va">loc</span>, <span class="va">dat</span>, <span class="va">range</span>, res <span class="op">=</span> <span class="fl">1</span>, cdd <span class="op">=</span> <span class="fl">450</span><span class="op">)</span></span>
 <span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">r</span><span class="op">)</span><span class="op">)</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> List of 3</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  $ weight   :Classes ‘data.table’ and 'data.frame':	6349 obs. of  4 variables:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ lon: num [1:6349] -55.5 -55.5 -55.5 -54.5 -54.5 -54.5 -53.5 -53.5 -53.5 -52.5 ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ lat: num [1:6349] -34.5 -34.5 -34.5 -34.5 -34.5 -34.5 -34.5 -34.5 -34.5 -34.5 ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ I  : int [1:6349] 220 21 213 220 213 21 220 213 21 220 ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ w  : num [1:6349] 0.1573 0.0418 0.0246 0.2879 0.0429 ...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  $ weight   :Classes ‘data.table’ and 'data.frame':	6349 obs. of  6 variables:</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ lon  : num [1:6349] -55.5 -55.5 -55.5 -54.5 -54.5 -54.5 -53.5 -53.5 -53.5 -52.5 ...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ lat  : num [1:6349] -34.5 -34.5 -34.5 -34.5 -34.5 -34.5 -34.5 -34.5 -34.5 -34.5 ...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ I    : int [1:6349] 220 21 213 220 213 21 220 213 21 220 ...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ dist : num [1:6349] 224 379 421 151 357 ...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ angle: num [1:6349] 60.7 20.6 49.6 42.7 39.4 ...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ w    : num [1:6349] 0.1573 0.0418 0.0246 0.2879 0.0429 ...</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   ..- attr(*, ".internal.selfref")=&lt;externalptr&gt; </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  $ coord    :Classes ‘data.table’ and 'data.frame':	932 obs. of  2 variables:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ lon: num [1:932] -73.5 -73.5 -73.5 -73.5 -72.5 -72.5 -72.5 -72.5 -72.5 -72.5 ...</span>
