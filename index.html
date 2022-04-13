@@ -65,8 +65,8 @@
 </h2>
 <p>You can install the development version of spInterp from <a href="https://github.com/" class="external-link">GitHub</a> with:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># install.packages("devtools")</span>
-<span class="fu">devtools</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"rpkgs/spInterp"</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span class="co"># install.packages("remotes")</span>
+<span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"rpkgs/spInterp"</span><span class="op">)</span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="on-top-of">On top of<a class="anchor" aria-label="anchor" href="#on-top-of"></a>
@@ -80,7 +80,48 @@
 <h2 id="performance">Performance<a class="anchor" aria-label="anchor" href="#performance"></a>
 </h2>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"></code></pre></div>
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">spInterp</span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">adw</span><span class="op">)</span>
+
+<span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">TempBrazil</span><span class="op">)</span> <span class="co"># Temperature for some poins of Brazil</span>
+
+<span class="va">loc</span> <span class="op">&lt;-</span> <span class="va">TempBrazil</span><span class="op">[</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">2</span><span class="op">]</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu">set_names</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"lon"</span>, <span class="st">"lat"</span><span class="op">)</span><span class="op">)</span>
+<span class="va">dat</span> <span class="op">&lt;-</span> <span class="va">TempBrazil</span><span class="op">[</span>, <span class="fl">3</span><span class="op">]</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">as.matrix</a></span><span class="op">(</span><span class="op">)</span>  <span class="co"># Vector with observations in points</span>
+
+<span class="va">range</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">78</span>, <span class="op">-</span><span class="fl">34</span>, <span class="op">-</span><span class="fl">36</span>, <span class="fl">5</span><span class="op">)</span>
+
+<span class="co"># Compare with the R package adw</span>
+<span class="va">dd</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">cbind</a></span><span class="op">(</span><span class="va">loc</span>, value <span class="op">=</span> <span class="va">dat</span><span class="op">[</span>,<span class="fl">1</span><span class="op">]</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/base/system.time.html" class="external-link">system.time</a></span><span class="op">(</span><span class="op">{</span>
+  <span class="va">r_adw</span> <span class="op">&lt;-</span> <span class="fu">adw</span><span class="fu">::</span><span class="fu">adw</span><span class="op">(</span><span class="va">dd</span>, <span class="va">range</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>, <span class="va">range</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span>, <span class="va">range</span><span class="op">[</span><span class="fl">3</span><span class="op">]</span>, <span class="va">range</span><span class="op">[</span><span class="fl">4</span><span class="op">]</span>, cdd <span class="op">=</span> <span class="fl">450</span><span class="op">*</span><span class="fl">1e3</span>, gridSize <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>  
+<span class="op">}</span><span class="op">)</span>
+<span class="co">#&gt;  用户  系统  流逝 </span>
+<span class="co">#&gt; 60.53  0.28 60.81</span>
+
+<span class="fu"><a href="https://rdrr.io/r/base/system.time.html" class="external-link">system.time</a></span><span class="op">(</span><span class="op">{</span>
+  <span class="va">r_spInterp</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/spInterp_adw.html">spInterp_adw</a></span><span class="op">(</span><span class="va">loc</span>, <span class="va">dat</span>, <span class="va">range</span>, res <span class="op">=</span> <span class="fl">1</span>, cdd <span class="op">=</span> <span class="fl">450</span><span class="op">)</span>
+<span class="op">}</span><span class="op">)</span>
+<span class="co">#&gt; 用户 系统 流逝 </span>
+<span class="co">#&gt; 0.60 0.00 0.59</span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">df</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">rbind</a></span><span class="op">(</span>
+  <span class="va">r_spInterp</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/exposition.html" class="external-link">%$%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">cbind</a></span><span class="op">(</span><span class="va">coord</span>, value <span class="op">=</span> <span class="va">predicted</span><span class="op">[</span>, <span class="fl">1</span><span class="op">]</span>, method <span class="op">=</span> <span class="st">"spInterp"</span><span class="op">)</span>, 
+  <span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">cbind</a></span><span class="op">(</span><span class="va">r_adw</span>, method <span class="op">=</span> <span class="st">"adw"</span><span class="op">)</span><span class="op">)</span>
+
+<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org" class="external-link">ggplot2</a></span><span class="op">)</span>
+<span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="va">df</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span><span class="va">lon</span>, <span class="va">lat</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> 
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_tile.html" class="external-link">geom_raster</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>fill <span class="op">=</span> <span class="va">value</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
+  <span class="co"># geom_point(data = loc, size = 2.5, shape = 3, color = "red") +</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/facet_wrap.html" class="external-link">facet_wrap</a></span><span class="op">(</span><span class="op">~</span><span class="va">method</span><span class="op">)</span> <span class="op">+</span> 
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/lims.html" class="external-link">lims</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">range</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">2</span><span class="op">]</span>, y <span class="op">=</span> <span class="va">range</span><span class="op">[</span><span class="fl">3</span><span class="op">:</span><span class="fl">4</span><span class="op">]</span><span class="op">)</span>
+<span class="co">#&gt; Warning: Raster pixels are placed at uneven horizontal intervals and will be</span>
+<span class="co">#&gt; shifted. Consider using geom_tile() instead.</span>
+<span class="co">#&gt; Warning: Raster pixels are placed at uneven vertical intervals and will be</span>
+<span class="co">#&gt; shifted. Consider using geom_tile() instead.</span>
+<span class="co">#&gt; Warning: Removed 170 rows containing missing values (geom_raster).</span></code></pre></div>
+<p><img src="reference/figures/README-unnamed-chunk-3-1.png" width="100%"></p>
+<p><code>spInterp</code> used the exactly same algrithm as that of <code>adw</code> package. But unlike <code>adw</code>, <code>spInterp</code> avoids using <code>sf</code> for spatial data processing such as buffer, intersect. Surprisingly, <code>spInterp</code> is dozens of times faster.</p>
+<p>There is a slight difference from <code>adw</code> in the calculation of the distance between two points on the sphere, because <code>spInterp</code> uses self defined function, while <code>adw</code> uses <code><a href="https://r-spatial.github.io/sf/reference/geos_measures.html" class="external-link">sf::st_distance</a></code>. But the difference is tiny (might about 1%), can be ignored at most situation.</p>
 </div>
 <div class="section level2">
 <h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a>
