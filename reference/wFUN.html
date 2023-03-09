@@ -57,15 +57,15 @@ as thiessen interpolation)</p></li>
 </ul></div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">wFUN_adw</span><span class="op">(</span><span class="va">dist</span>, m <span class="op">=</span> <span class="fl">4</span>, cdd <span class="op">=</span> <span class="fl">450</span>, <span class="va">point</span>, <span class="va">sites</span>, <span class="va">...</span><span class="op">)</span>
-
-<span class="fu">wFUN_idw</span><span class="op">(</span><span class="va">dist</span>, m <span class="op">=</span> <span class="fl">2</span>, <span class="va">...</span><span class="op">)</span>
-
-<span class="fu">wFUN_mean</span><span class="op">(</span><span class="va">dist</span>, <span class="va">...</span><span class="op">)</span>
-
-<span class="fu">wFUN_thiessen</span><span class="op">(</span><span class="va">dist</span>, <span class="va">...</span><span class="op">)</span>
-
-<span class="fu">wFUN_natural</span><span class="op">(</span><span class="va">dist</span>, <span class="va">...</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">wFUN_adw</span><span class="op">(</span><span class="va">dist</span>, m <span class="op">=</span> <span class="fl">4</span>, cdd <span class="op">=</span> <span class="fl">450</span>, <span class="va">point</span>, <span class="va">sites</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">wFUN_idw</span><span class="op">(</span><span class="va">dist</span>, m <span class="op">=</span> <span class="fl">2</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">wFUN_mean</span><span class="op">(</span><span class="va">dist</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">wFUN_thiessen</span><span class="op">(</span><span class="va">dist</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">wFUN_natural</span><span class="op">(</span><span class="va">dist</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -73,17 +73,28 @@ as thiessen interpolation)</p></li>
     <dl><dt>dist</dt>
 <dd><p>numeric vector, the distance between point and each sites, with the
 same length as <code>sites</code>.</p></dd>
+
+
 <dt>m</dt>
 <dd><p>distance weight (default 4)</p></dd>
+
+
 <dt>cdd</dt>
 <dd><p>the correlation decay distance (km) for <code>adw</code> and searching radius
 for others, default (450).</p></dd>
+
+
 <dt>point</dt>
 <dd><p>numeric vector <code>c(lon, lat)</code>, the point needed to be interpolated</p></dd>
+
+
 <dt>sites</dt>
 <dd><p>matrix, <code>cbind(lon, lat)</code>, coordinates of sites used to interpolate <code>point</code></p></dd>
+
+
 <dt>...</dt>
 <dd><p>ignored</p></dd>
+
 </dl></div>
 
   </div>
@@ -98,7 +109,7 @@ for others, default (450).</p></dd>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer></div>
