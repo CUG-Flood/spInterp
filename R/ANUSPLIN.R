@@ -1,8 +1,3 @@
-library(data.table)
-library(terra)
-library(glue)
-library(plyr)
-
 #' Create configures for ANUSPLIN
 #'
 #' Format the input data and generate the configuration file required for ANUSPLIN interpolation.
@@ -96,10 +91,10 @@ library(plyr)
 #' integer.
 #' @param type.alt Mode of the independent variable, possible values are:
 #' \describe{
-#' \item{0}{user supplied constant}
-#' \item{1}{user supplied grid in generic row format with the same size as the grid being calculated}
-#' \item{2}{user supplied Arc/Info grid with same size as the grid being calculated (**default**)}
-#' \item{3}{user supplied Idrisi image with the same size as the grid being calculated}
+#' \item{`0`}{user supplied constant}
+#' \item{`1`}{user supplied grid in generic row format with the same size as the grid being calculated}
+#' \item{`2`}{user supplied Arc/Info grid with same size as the grid being calculated (**default**)}
+#' \item{`3`}{user supplied Idrisi image with the same size as the grid being calculated}
 #' }
 #' @param type.grd Same as `type.mask`, but for interpolated grid.
 #' @param missing Filling of missing values.
@@ -114,42 +109,51 @@ library(plyr)
 #' ignored.
 #' @return a list with three components:
 #' \describe{
-#' \item{data}{fixed length of data.frame (data.table)}
-#' \item{splina}{splina parameters}
-#' \item{lapgrd}{lapgrd parameters}
+#' \item{data}{formatted data.table of `dat`}
+#' \item{splina}{a vector containing splina parameters}
+#' \item{lapgrd}{a vector containing lapgrd parameters}
 #' }
-#' @importFrom  glue glue
+#' @importFrom glue glue
+#' @importFrom stringr str_extract
+#' @importFrom magrittr %>% %<>% 
+#' @importFrom data.table as.data.table
 #'
-#' @examples opt_anusplin(dat, 'test', c(70, 140, 15, 55))
-opt_anusplin <- function(dat,
-                         basename,
-                         range,
-                         file.alt,
-                         unit = 0,
-                         res = 0.25,
-                         width = 7, 
-                         alt = 'cov',
-                         lim.lon = 'auto',
-                         lim.lat = 'auto',
-                         lim.alt = 'auto',
-                         cvt.lon = c(0, 1),
-                         cvt.lat = c(0, 1),
-                         cvt.alt = c(1, 1),
-                         cvt.coef = 1000,
-                         trans.dep = 0,
-                         order = 3,
-                         err.wgt = 0,
-                         optimize = 1,
-                         smooth = 1,
-                         type.mask = 0,
-                         file.mask = NULL,
-                         type.alt = 2,
-                         type.grd = 2,
-                         missing = -9999,
-                         err.cov = 2,
-                         grid.pos = 1,
-                         essential = T) {
+#' @examples 
+#' data(TempBrazil)
+#' colnames(TempBrazil) <- c('lon', 'lat', 'temp')
+#' anusplin_params(TempBrazil, 'TempBrazil', c(70, 140, 15, 55), 'dem.txt', alt = NULL)
+anusplin_params <- function(dat,
+                            basename,
+                            range,
+                            file.alt,
+                            unit = 0,
+                            res = 0.25,
+                            width = 7,
+                            alt = 'cov',
+                            lim.lon = 'auto',
+                            lim.lat = 'auto',
+                            lim.alt = 'auto',
+                            cvt.lon = c(0, 1),
+                            cvt.lat = c(0, 1),
+                            cvt.alt = c(1, 1),
+                            cvt.coef = 1000,
+                            trans.dep = 0,
+                            order = 3,
+                            err.wgt = 0,
+                            optimize = 1,
+                            smooth = 1,
+                            type.mask = 0,
+                            file.mask = NULL,
+                            type.alt = 2,
+                            type.grd = 2,
+                            missing = -9999,
+                            err.cov = 2,
+                            grid.pos = 1,
+                            essential = T) {
   # check arguments validation
+  if (nchar(missing) > width) {
+    stop('Missing values should not be more than the width')
+  }
   if (type.alt != 0) {
     if (!is.character(file.alt))
       stop('1')
@@ -158,6 +162,7 @@ opt_anusplin <- function(dat,
       stop('2')
   }
   
+  dat %<>% as.data.table()
   names <- colnames(dat)
   
   if (is.null(alt)) {
@@ -312,25 +317,57 @@ opt_anusplin <- function(dat,
 }
 
 
-write_anusplin <-
+#' ANUSPLIN writer
+#'
+#' Write the formatted data, splina and lapgrd configuration files to the same
+#' directory.
+#'
+#' @param dat A formatted data.frame (data.table).
+#' @param opt_splina A vector of splina parameters.
+#' @param opt_lapgrd A vector of lapgrd parameters.
+#' @param file_path The output directory.
+#' @param na.width The length of the whitespace to fill in the missing value,
+#' automatic calculation (**default**) or manual setting an integer.
+#' @param exe Path to splina and lapgrd exe.
+#' @param names Filenames of splina and lapgrd paramters, no path required.
+#' @param cmd The filename of batch execution script, or no export (**default**).
+#'
+#' @importFrom glue glue
+#' @importFrom stringr str_match_all
+#' @importFrom stats na.omit
+#'
+anusplin_write <-
   function(dat,
            opt_splina,
            opt_lapgrd,
            file_path,
+           exe,
            na.width = 'auto',
            names = c('splina.txt', 'lapgrd.txt'),
-           exe = c('splina.exe', 'lapgrd.exe'),
-           cmd = F) {
-    
-    width <- data[, lapply(.SD, nchar)] %>% unique %>% nrow
-    if (width != 1) stop('Data column width is not fixed.')
+           cmd = NULL) {
+    width <- dat[, lapply(.SD, nchar)] %>% na.omit %>% unique %>% nrow
+    if (width != 1)
+      stop('Data column width is not fixed.')
     
     if (na.width == 'auto') {
-      width <- opt_splina[length(opt_splina) - 7] %>%
-        str_extract_all('(?<=f)[0-9]+', simplify = T)
-      if (uniqueN(fmt) != 1) {
-        stop(glue('Conflicted parse, the detected width is not unique, there are {width}'))
-      }
+      na.col <- which(sapply(a$data, anyNA)) %>% unname()
+      if (length(na.col) > 0) {
+        revid <- opt_splina[length(opt_splina) - 7] %>%
+          {
+            str_match_all(., '([0-9]+)?[a-z]([0-9]+)')[[1]]
+          } %>%
+          apply(1, \(x) rep(as.numeric(x[3]), ifelse(is.na(x[2]), 1, as.numeric(x[2])))) %>%
+          unlist
+        na.width <- revid[na.col] %>% unique
+        if (length(na.width) != 1) {
+          stop(
+            glue(
+              'The widths of columns containing NA must be unique, but widths are {na.width}'
+            )
+          )
+        }
+      } else
+        na.width <- NULL
     }
     
     file <- opt_splina[length(opt_splina) - 10]
@@ -339,9 +376,9 @@ write_anusplin <-
       glue("{file_path}/{file}"),
       sep = "",
       col.names = F,
-      row.names = F, 
+      row.names = F,
       quote = F,
-      na = strrep(" ", width)
+      na = strrep(" ", na.width)
     )
     
     splina <- unlist(opt_splina, use.names = F)
@@ -354,7 +391,7 @@ write_anusplin <-
     writeLines(lapgrd, fileConn)
     close(fileConn)
     
-    if ((length(exe) == 2) && cmd) {
+    if ((length(exe) == 2) && !is.null(cmd)) {
       cmd <- c(
         glue('{exe[1]}<{names[1]}>splina.log'),
         glue('{exe[2]}<{names[2]}>lapgrd.log')
