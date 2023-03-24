@@ -1,6 +1,5 @@
 # library(doFuture)
 # registerDoFuture()
-
 library(fields)
 library(data.table)
 library(magrittr)
@@ -128,17 +127,14 @@ res <- foreach(var = c('RH', 'Tair_avg', 'Tair_max')) %do% {
   
   # run anusplin
   path <- paste('tests/anusplin', var, sep = '/')
-  files <-
-    dir(path,
+  files <- dir(path,
         pattern = 'cmd$',
         recursive = T,
         full.names = T)
   
   l_ply(files, run, .progress = 'text')
-  
-  
-  files <-
-    dir(path,
+
+  files <- dir(path,
         pattern = glue('^[A-Z].*grd$'),
         recursive = T,
         full.names = T)
