@@ -57,7 +57,7 @@
 #' \item{`2`}{fit surface to the square root of the data values}
 #' \item{`5`}{occurrence – transform data values by setting all positive value to 1.0 and ignoring all negative values}
 #' }
-#' @param order Order of spline, a positive integer.
+#' @param order (default 3L), order of spline, a positive integer.
 #' @param err.wgt Number of relative error variances, a non-negative integer,
 #' possible values are:
 #' \describe{
@@ -90,38 +90,37 @@
 #' @param file.mask Filename of mask grid, only valid if `type.mask` set to positive
 #' integer.
 #' @param type.alt Mode of the independent variable, possible values are:
-#' \describe{
-#' \item{`0`}{user supplied constant}
-#' \item{`1`}{user supplied grid in generic row format with the same size as the grid being calculated}
-#' \item{`2`}{user supplied Arc/Info grid with same size as the grid being calculated (**default**)}
-#' \item{`3`}{user supplied Idrisi image with the same size as the grid being calculated}
-#' }
+#' - `0`: user supplied constant
+#' - `1`: user supplied grid in generic row format with the same size as the grid being calculated
+#' - `2`: user supplied Arc/Info grid with same size as the grid being calculated (**default**)
+#' - `3`: user supplied Idrisi image with the same size as the grid being calculated
 #' @param type.grd Same as `type.mask`, but for interpolated grid.
 #' @param missing Filling of missing values.
 #' @param err.cov test
 #' @param grid.pos Grid position option, a non-negative integer, possible values are:
-#' \describe{
-#' \item{`0`}{grid points at cell corners (**default**)}
-#' \item{`1`}{grid points at cell centres}
-#' }
+#' - `0`: grid points at cell corners (**default**)
+#' - `1`: grid points at cell centres
+#' 
 #' @param essential If `True`, only export essential process files, large residual
 #' file, optimisation parameters file, data list file and validation data file are
 #' ignored.
+#' 
 #' @return a list with three components:
-#' \describe{
-#' \item{data}{formatted data.table of `dat`}
-#' \item{splina}{a vector containing splina parameters}
-#' \item{lapgrd}{a vector containing lapgrd parameters}
-#' }
+#' - `data`   : formatted data.table of `dat`
+#' - `splina` : a vector containing splina parameters
+#' - `lapgrd` : a vector containing lapgrd parameters
+#' 
 #' @importFrom glue glue
 #' @importFrom stringr str_extract
 #' @importFrom magrittr %>% %<>%
 #' @importFrom data.table as.data.table
+#' @importFrom plyr round_any
 #' 
 #' @examples
 #' data(TempBrazil)
 #' colnames(TempBrazil) <- c("lon", "lat", "temp")
 #' anusplin_params(TempBrazil, "TempBrazil", c(70, 140, 15, 55), "dem.txt", alt = NULL)
+#' @export 
 anusplin_params <- function(
     dat, basename, range, file.alt,
     unit = 0,
@@ -343,18 +342,13 @@ anusplin_write <- function(dat,
                            names = c("splina.txt", "lapgrd.txt"),
                            cmd = NULL) {
   width <- dat[, lapply(.SD, nchar)] %>%
-    na.omit() %>%
-    unique() %>%
-    nrow()
-  if (width != 1) {
-    stop("Data column width is not fixed.")
-  }
-
+    na.omit() %>% unique() %>% nrow()
+  if (width != 1) stop("Data column width is not fixed.")
+  
   if (na.width == "auto") {
     na.col <- which(sapply(a$data, anyNA)) %>% unname()
     if (length(na.col) > 0) {
-      revid <- opt_splina[length(opt_splina) - 7] %>%
-        {
+      revid <- opt_splina[length(opt_splina) - 7] %>% {
           str_match_all(., "([0-9]+)?[a-z]([0-9]+)")[[1]]
         } %>%
         apply(1, \(x) rep(as.numeric(x[3]), ifelse(is.na(x[2]), 1, as.numeric(x[2])))) %>%
@@ -369,17 +363,11 @@ anusplin_write <- function(dat,
       na.width <- NULL
     }
   }
-
+  
   file <- opt_splina[length(opt_splina) - 10]
-  write.table(
-    dat,
-    glue("{file_path}/{file}"),
-    sep = "",
-    col.names = F,
-    row.names = F,
-    quote = F,
-    na = strrep(" ", na.width)
-  )
+  write.table(dat, glue("{file_path}/{file}"),
+    sep = "", col.names = F, row.names = F, quote = F,
+    na = strrep(" ", na.width))
 
   splina <- unlist(opt_splina, use.names = F)
   fileConn <- glue("{file_path}/{names[1]}") %>% file()

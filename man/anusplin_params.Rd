@@ -107,7 +107,7 @@ The possible transformations are:
 \item{\code{5}}{occurrence – transform data values by setting all positive value to 1.0 and ignoring all negative values}
 }}
 
-\item{order}{Order of spline, a positive integer.}
+\item{order}{(default 3L), order of spline, a positive integer.}
 
 \item{err.wgt}{Number of relative error variances, a non-negative integer,
 possible values are:
@@ -146,11 +146,11 @@ possible values are:
 integer.}
 
 \item{type.alt}{Mode of the independent variable, possible values are:
-\describe{
-\item{\code{0}}{user supplied constant}
-\item{\code{1}}{user supplied grid in generic row format with the same size as the grid being calculated}
-\item{\code{2}}{user supplied Arc/Info grid with same size as the grid being calculated (\strong{default})}
-\item{\code{3}}{user supplied Idrisi image with the same size as the grid being calculated}
+\itemize{
+\item \code{0}: user supplied constant
+\item \code{1}: user supplied grid in generic row format with the same size as the grid being calculated
+\item \code{2}: user supplied Arc/Info grid with same size as the grid being calculated (\strong{default})
+\item \code{3}: user supplied Idrisi image with the same size as the grid being calculated
 }}
 
 \item{type.grd}{Same as \code{type.mask}, but for interpolated grid.}
@@ -160,9 +160,9 @@ integer.}
 \item{err.cov}{test}
 
 \item{grid.pos}{Grid position option, a non-negative integer, possible values are:
-\describe{
-\item{\code{0}}{grid points at cell corners (\strong{default})}
-\item{\code{1}}{grid points at cell centres}
+\itemize{
+\item \code{0}: grid points at cell corners (\strong{default})
+\item \code{1}: grid points at cell centres
 }}
 
 \item{essential}{If \code{True}, only export essential process files, large residual
@@ -171,10 +171,10 @@ ignored.}
 }
 \value{
 a list with three components:
-\describe{
-\item{data}{formatted data.table of \code{dat}}
-\item{splina}{a vector containing splina parameters}
-\item{lapgrd}{a vector containing lapgrd parameters}
+\itemize{
+\item \code{data}   : formatted data.table of \code{dat}
+\item \code{splina} : a vector containing splina parameters
+\item \code{lapgrd} : a vector containing lapgrd parameters
 }
 }
 \description{

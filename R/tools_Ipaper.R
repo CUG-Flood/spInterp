@@ -125,3 +125,8 @@ array_3dTo2d <- function(array, I_grid = NULL) {
   }
   return(array)
 }
+
+# https://stackoverflow.com/questions/43627679/round-any-equivalent-for-dplyr
+# round_any <- function(x, accuracy, f = round) {
+#   f(x / accuracy) * accuracy
+# }
