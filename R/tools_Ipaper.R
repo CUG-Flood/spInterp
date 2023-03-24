@@ -130,3 +130,14 @@ array_3dTo2d <- function(array, I_grid = NULL) {
 # round_any <- function(x, accuracy, f = round) {
 #   f(x / accuracy) * accuracy
 # }
+
+writeLines_list <- function(l, f) {
+  con <- file(f, "w")
+  on.exit(close(con))
+  
+  for (x in unlist(l)) {
+    writeLines(x, con)
+    # readr::write_lines(l, f, append = TRUE, num_threads = 1)
+  }
+  invisible()
+}

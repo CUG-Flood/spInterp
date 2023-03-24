@@ -7,10 +7,10 @@
 anusplin_params(
   dat,
   basename,
+  file.alt = NULL,
   range,
-  file.alt,
-  unit = 0,
   res = 0.25,
+  unit = 0,
   width = 7,
   alt = "cov",
   lim.lon = "auto",
@@ -41,33 +41,33 @@ lat must be included, site and alt are optional, the others are variable names.}
 
 \item{basename}{Basename for all output files, extensions should not be included.}
 
-\item{range}{Range of interpolation grid (xmin, xmax, ymin, ymax).}
-
 \item{file.alt}{When \code{type.alt} is not 0, this is the input grid file name; otherwise
 a manual constant.}
 
-\item{unit}{The unit of \code{dat}, a non-negative integer, possible values are:
-\describe{
-\item{\code{0}}{undefined (\strong{default})}
-\item{\code{1}}{meteres}
-\item{\code{2}}{feet}
-\item{\code{3}}{kilometers}
-\item{\code{4}}{miles}
-\item{\code{5}}{degrees}
-\item{\code{6}}{radians}
-\item{\code{7}}{millimetres}
-\item{\code{8}}{megajoules}
-}}
+\item{range}{Range of interpolation grid (xmin, xmax, ymin, ymax).}
 
 \item{res}{The grid resolution (degree).}
+
+\item{unit}{The unit of \code{dat}, a non-negative integer, possible values are:
+\itemize{
+\item \code{0}: undefined (\strong{default})
+\item \code{1}: meteres
+\item \code{2}: feet
+\item \code{3}: kilometers
+\item \code{4}: miles
+\item \code{5}: degrees
+\item \code{6}: radians
+\item \code{7}: millimetres
+\item \code{8}: megajoules
+}}
 
 \item{width}{The fixed width of numbers in formatted data.}
 
 \item{alt}{Type of elevation was treated, possible values are:
-\describe{
-\item{\code{NULL}}{no use of elevation}
-\item{\code{cov}}{considered as independent covariates (\strong{default})}
-\item{\code{spl}}{considered as independent spline variables}
+\itemize{
+\item \code{NULL} : no use of elevation
+\item \code{cov}  : considered as independent covariates (\strong{default})
+\item \code{spl}  : considered as independent spline variables
 }}
 
 \item{lim.lon}{A vector containing lower and upper limits, \code{auto} (default)
@@ -80,17 +80,18 @@ Data points outside these limits, augmented by margins, are ignored.}
 
 \item{cvt.lon}{Transformation and scale factor (\strong{default} is \code{1}) of longitude.\cr
 Real Value = (Table Value) * (Scale Factor)\cr
+
 The possible transformations are:
-\describe{
-\item{\code{0}}{no transformation (\strong{default})}
-\item{\code{1}}{x/a}
-\item{\code{2}}{ax}
-\item{\code{3}}{a·log(x+b)}
-\item{\code{4}}{(x/b)^a}
-\item{\code{5}}{a·exp(x/b)}
-\item{\code{6}}{a·tanh(x/b)}
-\item{\code{7}}{anisotropy angle in degrees}
-\item{\code{8}}{anisotropy factor - in the direction specified by the anisotropy angle}
+\itemize{
+\item \code{0}: no transformation (\strong{default})
+\item \code{1}: x/a
+\item \code{2}: ax
+\item \code{3}: a·log(x+b)
+\item \code{4}: (x/b)^a
+\item \code{5}: a·exp(x/b)
+\item \code{6}: a·tanh(x/b)
+\item \code{7}: anisotropy angle in degrees
+\item \code{8}: anisotropy factor - in the direction specified by the anisotropy angle
 }}
 
 \item{cvt.lat}{Same as \code{cvt.lon}, but for latitude.}
@@ -100,46 +101,46 @@ The possible transformations are:
 \item{cvt.coef}{Parameters used for transformation, one or two real numbers.}
 
 \item{trans.dep}{Dependent variable transformation, possible values are:
-\describe{
-\item{\code{0}}{no transformation (\strong{default})}
-\item{\code{1}}{fit surface to natural logarithm of the data values}
-\item{\code{2}}{fit surface to the square root of the data values}
-\item{\code{5}}{occurrence – transform data values by setting all positive value to 1.0 and ignoring all negative values}
+\itemize{
+\item \code{0}: no transformation (\strong{default})
+\item \code{1}: fit surface to natural logarithm of the data values
+\item \code{2}: fit surface to the square root of the data values
+\item \code{5}: occurrence – transform data values by setting all positive value to 1.0 and ignoring all negative values
 }}
 
 \item{order}{(default 3L), order of spline, a positive integer.}
 
 \item{err.wgt}{Number of relative error variances, a non-negative integer,
 possible values are:
-\describe{
-\item{\code{0}}{data points uniformly weighted for each surface (\strong{default})}
-\item{\code{1}}{the same weighting is applied to each surface}
-\item{Number of surfaces}{a different weighting is applied to each surface}
+\itemize{
+\item \code{0}: data points uniformly weighted for each surface (\strong{default})
+\item \code{1}: the same weighting is applied to each surface
+\item \verb{Number of surfaces}: a different weighting is applied to each surface
 }}
 
 \item{optimize}{Optimization directive, a non-negative integer, possible values are:
-\describe{
-\item{\code{0}}{common smoothing parameter for all surfaces}
-\item{\code{1}}{common smoothing directive for all surfaces (\strong{default})}
-\item{\code{2}}{different smoothing directive for each surface}
+\itemize{
+\item \code{0}: common smoothing parameter for all surfaces
+\item \code{1}: common smoothing directive for all surfaces (\strong{default})
+\item \code{2}: different smoothing directive for each surface
 }}
 
 \item{smooth}{Smoothing directive for each surface, a non-negative integer,
 possible values are:
-\describe{
-\item{\code{0}}{fixed smoothing parameter - supply value}
-\item{\code{1}}{ minimise GCV (\strong{default})}
-\item{\code{2}}{minimise true mean square error using supplied error standard deviation estimate}
-\item{\code{3}}{fixed signal - supply value}
-\item{\code{4}}{minimise GML}
+\itemize{
+\item \code{0}: fixed smoothing parameter - supply value
+\item \code{1}:  minimise GCV (\strong{default})
+\item \code{2}: minimise true mean square error using supplied error standard deviation estimate
+\item \code{3}: fixed signal - supply value
+\item \code{4}: minimise GML
 }}
 
 \item{type.mask}{Mode of mask grid, a non-negative integer, possible values are:
-\describe{
-\item{\code{0}}{mask grid not supplied (\strong{default})}
-\item{\code{1}}{generic mask grid}
-\item{\code{2}}{Arc/Info mask grid}
-\item{\code{3}}{Idrisi mask grid}
+\itemize{
+\item \code{0}: mask grid not supplied (\strong{default})
+\item \code{1}: generic mask grid
+\item \code{2}: Arc/Info mask grid
+\item \code{3}: Idrisi mask grid
 }}
 
 \item{file.mask}{Filename of mask grid, only valid if \code{type.mask} set to positive
@@ -183,5 +184,11 @@ Format the input data and generate the configuration file required for ANUSPLIN 
 \examples{
 data(TempBrazil)
 colnames(TempBrazil) <- c("lon", "lat", "temp")
-anusplin_params(TempBrazil, "TempBrazil", c(70, 140, 15, 55), "dem.txt", alt = NULL)
+df = TempBrazil
+
+# range <- c(70, 140, 15, 55)
+range <- c(-78, -34, -36, 5)
+p = anusplin_params(df, "TempBrazil", "dem.txt", range, alt = NULL)
+str(p)
+
 }

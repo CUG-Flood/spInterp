@@ -8,11 +8,11 @@ anusplin_write(
   dat,
   opt_splina,
   opt_lapgrd,
-  file_path,
-  exe,
+  outdir,
   na.width = "auto",
   names = c("splina.txt", "lapgrd.txt"),
-  cmd = NULL
+  is.run = FALSE,
+  ...
 )
 }
 \arguments{
@@ -22,14 +22,14 @@ anusplin_write(
 
 \item{opt_lapgrd}{A vector of lapgrd parameters.}
 
-\item{file_path}{The output directory.}
-
-\item{exe}{Path to splina and lapgrd exe.}
+\item{outdir}{The output directory.}
 
 \item{na.width}{The length of the whitespace to fill in the missing value,
 automatic calculation (\strong{default}) or manual setting an integer.}
 
 \item{names}{Filenames of splina and lapgrd paramters, no path required.}
+
+\item{exe}{Path to splina and lapgrd exe.}
 
 \item{cmd}{The filename of batch execution script, or no export (\strong{default}).}
 }
