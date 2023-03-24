@@ -16,3 +16,5 @@ R/examples/test*
 
 */temp/*
 */*/temp/*
+backup
+*.grd
