@@ -47,10 +47,10 @@
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">anusplin_params</span><span class="op">(</span></span>
 <span>  <span class="va">dat</span>,</span>
 <span>  <span class="va">basename</span>,</span>
+<span>  file.alt <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  <span class="va">range</span>,</span>
-<span>  <span class="va">file.alt</span>,</span>
-<span>  unit <span class="op">=</span> <span class="fl">0</span>,</span>
 <span>  res <span class="op">=</span> <span class="fl">0.25</span>,</span>
+<span>  unit <span class="op">=</span> <span class="fl">0</span>,</span>
 <span>  width <span class="op">=</span> <span class="fl">7</span>,</span>
 <span>  alt <span class="op">=</span> <span class="st">"cov"</span>,</span>
 <span>  lim.lon <span class="op">=</span> <span class="st">"auto"</span>,</span>
@@ -87,49 +87,30 @@ lat must be included, site and alt are optional, the others are variable names.<
 <dd><p>Basename for all output files, extensions should not be included.</p></dd>
 
 
-<dt>range</dt>
-<dd><p>Range of interpolation grid (xmin, xmax, ymin, ymax).</p></dd>
-
-
 <dt>file.alt</dt>
 <dd><p>When <code>type.alt</code> is not 0, this is the input grid file name; otherwise
 a manual constant.</p></dd>
 
 
-<dt>unit</dt>
-<dd><p>The unit of <code>dat</code>, a non-negative integer, possible values are:</p><dl><dt><code>0</code></dt>
-<dd><p>undefined (<strong>default</strong>)</p></dd>
-
-<dt><code>1</code></dt>
-<dd><p>meteres</p></dd>
-
-<dt><code>2</code></dt>
-<dd><p>feet</p></dd>
-
-<dt><code>3</code></dt>
-<dd><p>kilometers</p></dd>
-
-<dt><code>4</code></dt>
-<dd><p>miles</p></dd>
-
-<dt><code>5</code></dt>
-<dd><p>degrees</p></dd>
-
-<dt><code>6</code></dt>
-<dd><p>radians</p></dd>
-
-<dt><code>7</code></dt>
-<dd><p>millimetres</p></dd>
-
-<dt><code>8</code></dt>
-<dd><p>megajoules</p></dd>
-
-
-</dl></dd>
+<dt>range</dt>
+<dd><p>Range of interpolation grid (xmin, xmax, ymin, ymax).</p></dd>
 
 
 <dt>res</dt>
 <dd><p>The grid resolution (degree).</p></dd>
+
+
+<dt>unit</dt>
+<dd><p>The unit of <code>dat</code>, a non-negative integer, possible values are:</p><ul><li><p><code>0</code>: undefined (<strong>default</strong>)</p></li>
+<li><p><code>1</code>: meteres</p></li>
+<li><p><code>2</code>: feet</p></li>
+<li><p><code>3</code>: kilometers</p></li>
+<li><p><code>4</code>: miles</p></li>
+<li><p><code>5</code>: degrees</p></li>
+<li><p><code>6</code>: radians</p></li>
+<li><p><code>7</code>: millimetres</p></li>
+<li><p><code>8</code>: megajoules</p></li>
+</ul></dd>
 
 
 <dt>width</dt>
@@ -137,17 +118,10 @@ a manual constant.</p></dd>
 
 
 <dt>alt</dt>
-<dd><p>Type of elevation was treated, possible values are:</p><dl><dt><code>NULL</code></dt>
-<dd><p>no use of elevation</p></dd>
-
-<dt><code>cov</code></dt>
-<dd><p>considered as independent covariates (<strong>default</strong>)</p></dd>
-
-<dt><code>spl</code></dt>
-<dd><p>considered as independent spline variables</p></dd>
-
-
-</dl></dd>
+<dd><p>Type of elevation was treated, possible values are:</p><ul><li><p><code>NULL</code> : no use of elevation</p></li>
+<li><p><code>cov</code>  : considered as independent covariates (<strong>default</strong>)</p></li>
+<li><p><code>spl</code>  : considered as independent spline variables</p></li>
+</ul></dd>
 
 
 <dt>lim.lon</dt>
@@ -166,36 +140,17 @@ Data points outside these limits, augmented by margins, are ignored.</p></dd>
 
 <dt>cvt.lon</dt>
 <dd><p>Transformation and scale factor (<strong>default</strong> is <code>1</code>) of longitude.<br>
-Real Value = (Table Value) * (Scale Factor)<br>
-The possible transformations are:</p><dl><dt><code>0</code></dt>
-<dd><p>no transformation (<strong>default</strong>)</p></dd>
-
-<dt><code>1</code></dt>
-<dd><p>x/a</p></dd>
-
-<dt><code>2</code></dt>
-<dd><p>ax</p></dd>
-
-<dt><code>3</code></dt>
-<dd><p>a·log(x+b)</p></dd>
-
-<dt><code>4</code></dt>
-<dd><p>(x/b)^a</p></dd>
-
-<dt><code>5</code></dt>
-<dd><p>a·exp(x/b)</p></dd>
-
-<dt><code>6</code></dt>
-<dd><p>a·tanh(x/b)</p></dd>
-
-<dt><code>7</code></dt>
-<dd><p>anisotropy angle in degrees</p></dd>
-
-<dt><code>8</code></dt>
-<dd><p>anisotropy factor - in the direction specified by the anisotropy angle</p></dd>
-
-
-</dl></dd>
+Real Value = (Table Value) * (Scale Factor)<br></p>
+<p>The possible transformations are:</p><ul><li><p><code>0</code>: no transformation (<strong>default</strong>)</p></li>
+<li><p><code>1</code>: x/a</p></li>
+<li><p><code>2</code>: ax</p></li>
+<li><p><code>3</code>: a·log(x+b)</p></li>
+<li><p><code>4</code>: (x/b)^a</p></li>
+<li><p><code>5</code>: a·exp(x/b)</p></li>
+<li><p><code>6</code>: a·tanh(x/b)</p></li>
+<li><p><code>7</code>: anisotropy angle in degrees</p></li>
+<li><p><code>8</code>: anisotropy factor - in the direction specified by the anisotropy angle</p></li>
+</ul></dd>
 
 
 <dt>cvt.lat</dt>
@@ -211,20 +166,11 @@ The possible transformations are:</p><dl><dt><code>0</code></dt>
 
 
 <dt>trans.dep</dt>
-<dd><p>Dependent variable transformation, possible values are:</p><dl><dt><code>0</code></dt>
-<dd><p>no transformation (<strong>default</strong>)</p></dd>
-
-<dt><code>1</code></dt>
-<dd><p>fit surface to natural logarithm of the data values</p></dd>
-
-<dt><code>2</code></dt>
-<dd><p>fit surface to the square root of the data values</p></dd>
-
-<dt><code>5</code></dt>
-<dd><p>occurrence – transform data values by setting all positive value to 1.0 and ignoring all negative values</p></dd>
-
-
-</dl></dd>
+<dd><p>Dependent variable transformation, possible values are:</p><ul><li><p><code>0</code>: no transformation (<strong>default</strong>)</p></li>
+<li><p><code>1</code>: fit surface to natural logarithm of the data values</p></li>
+<li><p><code>2</code>: fit surface to the square root of the data values</p></li>
+<li><p><code>5</code>: occurrence – transform data values by setting all positive value to 1.0 and ignoring all negative values</p></li>
+</ul></dd>
 
 
 <dt>order</dt>
@@ -233,69 +179,35 @@ The possible transformations are:</p><dl><dt><code>0</code></dt>
 
 <dt>err.wgt</dt>
 <dd><p>Number of relative error variances, a non-negative integer,
-possible values are:</p><dl><dt><code>0</code></dt>
-<dd><p>data points uniformly weighted for each surface (<strong>default</strong>)</p></dd>
-
-<dt><code>1</code></dt>
-<dd><p>the same weighting is applied to each surface</p></dd>
-
-<dt>Number of surfaces</dt>
-<dd><p>a different weighting is applied to each surface</p></dd>
-
-
-</dl></dd>
+possible values are:</p><ul><li><p><code>0</code>: data points uniformly weighted for each surface (<strong>default</strong>)</p></li>
+<li><p><code>1</code>: the same weighting is applied to each surface</p></li>
+<li><p><code>Number of surfaces</code>: a different weighting is applied to each surface</p></li>
+</ul></dd>
 
 
 <dt>optimize</dt>
-<dd><p>Optimization directive, a non-negative integer, possible values are:</p><dl><dt><code>0</code></dt>
-<dd><p>common smoothing parameter for all surfaces</p></dd>
-
-<dt><code>1</code></dt>
-<dd><p>common smoothing directive for all surfaces (<strong>default</strong>)</p></dd>
-
-<dt><code>2</code></dt>
-<dd><p>different smoothing directive for each surface</p></dd>
-
-
-</dl></dd>
+<dd><p>Optimization directive, a non-negative integer, possible values are:</p><ul><li><p><code>0</code>: common smoothing parameter for all surfaces</p></li>
+<li><p><code>1</code>: common smoothing directive for all surfaces (<strong>default</strong>)</p></li>
+<li><p><code>2</code>: different smoothing directive for each surface</p></li>
+</ul></dd>
 
 
 <dt>smooth</dt>
 <dd><p>Smoothing directive for each surface, a non-negative integer,
-possible values are:</p><dl><dt><code>0</code></dt>
-<dd><p>fixed smoothing parameter - supply value</p></dd>
-
-<dt><code>1</code></dt>
-<dd><p>minimise GCV (<strong>default</strong>)</p></dd>
-
-<dt><code>2</code></dt>
-<dd><p>minimise true mean square error using supplied error standard deviation estimate</p></dd>
-
-<dt><code>3</code></dt>
-<dd><p>fixed signal - supply value</p></dd>
-
-<dt><code>4</code></dt>
-<dd><p>minimise GML</p></dd>
-
-
-</dl></dd>
+possible values are:</p><ul><li><p><code>0</code>: fixed smoothing parameter - supply value</p></li>
+<li><p><code>1</code>:  minimise GCV (<strong>default</strong>)</p></li>
+<li><p><code>2</code>: minimise true mean square error using supplied error standard deviation estimate</p></li>
+<li><p><code>3</code>: fixed signal - supply value</p></li>
+<li><p><code>4</code>: minimise GML</p></li>
+</ul></dd>
 
 
 <dt>type.mask</dt>
-<dd><p>Mode of mask grid, a non-negative integer, possible values are:</p><dl><dt><code>0</code></dt>
-<dd><p>mask grid not supplied (<strong>default</strong>)</p></dd>
-
-<dt><code>1</code></dt>
-<dd><p>generic mask grid</p></dd>
-
-<dt><code>2</code></dt>
-<dd><p>Arc/Info mask grid</p></dd>
-
-<dt><code>3</code></dt>
-<dd><p>Idrisi mask grid</p></dd>
-
-
-</dl></dd>
+<dd><p>Mode of mask grid, a non-negative integer, possible values are:</p><ul><li><p><code>0</code>: mask grid not supplied (<strong>default</strong>)</p></li>
+<li><p><code>1</code>: generic mask grid</p></li>
+<li><p><code>2</code>: Arc/Info mask grid</p></li>
+<li><p><code>3</code>: Idrisi mask grid</p></li>
+</ul></dd>
 
 
 <dt>file.mask</dt>
@@ -348,38 +260,67 @@ ignored.</p></dd>
     <h2>Examples</h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">TempBrazil</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">colnames</a></span><span class="op">(</span><span class="va">TempBrazil</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"lon"</span>, <span class="st">"lat"</span>, <span class="st">"temp"</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="fu">anusplin_params</span><span class="op">(</span><span class="va">TempBrazil</span>, <span class="st">"TempBrazil"</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">70</span>, <span class="fl">140</span>, <span class="fl">15</span>, <span class="fl">55</span><span class="op">)</span>, <span class="st">"dem.txt"</span>, alt <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $data</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>          lon     lat    temp</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   1:  -40.13   -2.88   27.00</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   2:  -37.90   -9.30   24.30</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   3:  -41.10  -19.50   26.10</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   4:  -38.30  -12.20   26.50</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   5:  -51.20   -3.20   26.00</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  ---                        </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 261:  -60.15  -12.73   22.80</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 262:  -40.30  -20.30   25.70</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 263:  -40.80  -14.90   21.20</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 264:  -50.00  -20.40   24.70</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 265:  -45.70   -3.30   26.60</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $splina</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [1] "TempBrazil"      "0"               "2"               "0"              </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [5] "0"               "0"               "-72.7 -34.9 0 1" "-33.5 2.8 0 1"  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [9] "1000"            "0"               "3"               "1"              </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [13] "0"               "1"               "1"               "TempBrazil.dat" </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [17] "265"             "0"               "(3f7.2)"         ""               </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [21] ""                "TempBrazil.sur"  ""                "TempBrazil.cov" </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [25] ""                ""               </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $lapgrd</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [1] "TempBrazil.sur" "0"              "1"              "TempBrazil.cov"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [5] "2"              ""               "1"              "1"             </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [9] "70 140 0.25"    "2"              "15 55 0.25"     "0"             </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [13] "2"              "dem.txt"        "2"              "-9999"         </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [17] "temp.grd"       "(3f7.2)"        "2"              "-9999"         </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [21] "cov_temp.grd"   "(3f7.2)"        ""               ""              </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-in"><span><span class="va">df</span> <span class="op">=</span> <span class="va">TempBrazil</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># range &lt;- c(70, 140, 15, 55)</span></span></span>
+<span class="r-in"><span><span class="va">range</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">78</span>, <span class="op">-</span><span class="fl">34</span>, <span class="op">-</span><span class="fl">36</span>, <span class="fl">5</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">p</span> <span class="op">=</span> <span class="fu">anusplin_params</span><span class="op">(</span><span class="va">df</span>, <span class="st">"TempBrazil"</span>, <span class="st">"dem.txt"</span>, <span class="va">range</span>, alt <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">p</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> List of 3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  $ data  :Classes ‘data.table’ and 'data.frame':	265 obs. of  3 variables:</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ lon : chr [1:265] " -40.13" " -37.90" " -41.10" " -38.30" ...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ lat : chr [1:265] "  -2.88" "  -9.30" " -19.50" " -12.20" ...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ temp: chr [1:265] "  27.00" "  24.30" "  26.10" "  26.50" ...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..- attr(*, ".internal.selfref")=&lt;externalptr&gt; </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  $ splina:List of 23</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ basename : chr "TempBrazil"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ unit     : num 0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ ind.spl  : num 2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ ind.cov  : num 0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ sur.spl  : num 0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ sur.cov  : num 0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ cvt.lon  : chr "-72.7 -34.9 0 1"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ cvt.lat  : chr "-33.5 2.8 0 1"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ cvt.alt  : NULL</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ cvt.coef : num 1000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ trans.dep: chr "0"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ order    : num 3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ n.sur    : int 1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ err.wgt  : num 0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ optimize : num 1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ smooth   : num 1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ infile   : 'glue' chr "TempBrazil.dat"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ nmax     : num 265</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ chr.site : num 0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ fmt      : chr "(3f7.2)"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ output   : chr [1:5] "" "" "TempBrazil.sur" "" ...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ ""       : chr ""</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ ""       : chr ""</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  $ lapgrd:List of 24</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ file.sur                                             : 'glue' chr "TempBrazil.sur"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ n.surf                                               : num 0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ type.surfCal                                         : num 1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ file.cov                                             : 'glue' chr "TempBrazil.cov"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ err.cov                                              : num 2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ ""                                                   : chr ""</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ grid.pos                                             : num 1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ pos.coord[1]                                         : int 1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ glue("{range[1]} {range[2]} {res}")                  : 'glue' chr "-78 -34 0.25"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ pos.coord[2]                                         : int 2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ glue("{range[3]} {range[4]} {res}")                  : 'glue' chr "-36 5 0.25"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ ifelse(type.mask, c(type.mask, file.mask), type.mask): num 0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ type.alt                                             : num 2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ file.alt                                             : chr "dem.txt"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ type.grd                                             : num 2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ missing                                              : num -9999</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ glue("{names[pos.var]}.grd")                         : 'glue' chr "temp.grd"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ glue("({n.sur + 2}f{width}.2)")                      : 'glue' chr "(3f7.2)"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ type.grd                                             : num 2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ missing                                              : num -9999</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ glue("cov_{names[pos.var]}.grd")                     : 'glue' chr "cov_temp.grd"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ glue("({n.sur + 2}f{width}.2)")                      : 'glue' chr "(3f7.2)"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ ""                                                   : chr ""</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ ""                                                   : chr ""</span>
 </code></pre></div>
     </div>
   </div>
