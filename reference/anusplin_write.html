@@ -50,11 +50,11 @@ directory.</p>
 <span>  <span class="va">dat</span>,</span>
 <span>  <span class="va">opt_splina</span>,</span>
 <span>  <span class="va">opt_lapgrd</span>,</span>
-<span>  <span class="va">file_path</span>,</span>
-<span>  <span class="va">exe</span>,</span>
+<span>  <span class="va">outdir</span>,</span>
 <span>  na.width <span class="op">=</span> <span class="st">"auto"</span>,</span>
 <span>  names <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"splina.txt"</span>, <span class="st">"lapgrd.txt"</span><span class="op">)</span>,</span>
-<span>  cmd <span class="op">=</span> <span class="cn">NULL</span></span>
+<span>  is.run <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  <span class="va">...</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -72,12 +72,8 @@ directory.</p>
 <dd><p>A vector of lapgrd parameters.</p></dd>
 
 
-<dt>file_path</dt>
+<dt>outdir</dt>
 <dd><p>The output directory.</p></dd>
-
-
-<dt>exe</dt>
-<dd><p>Path to splina and lapgrd exe.</p></dd>
 
 
 <dt>na.width</dt>
@@ -87,6 +83,10 @@ automatic calculation (<strong>default</strong>) or manual setting an integer.</
 
 <dt>names</dt>
 <dd><p>Filenames of splina and lapgrd paramters, no path required.</p></dd>
+
+
+<dt>exe</dt>
+<dd><p>Path to splina and lapgrd exe.</p></dd>
 
 
 <dt>cmd</dt>
