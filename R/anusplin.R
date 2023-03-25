@@ -405,7 +405,7 @@ anusplin_write <- function(outdir,
                            names = c("splina.txt", "lapgrd.txt"),
                            is.run = FALSE,
                            ...) {
-  if (class(dat) == 'list' & length(dat) == 3) {
+  if (inherits(dat, 'list') & length(dat) == 3) {
     opt_splina <- dat[[2]]
     opt_lapgrd <- dat[[3]]
     dat <- dat[[1]]
