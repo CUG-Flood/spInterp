@@ -446,18 +446,17 @@ anusplin_write <- function(outdir,
     glue("pushd {outdir} && run.cmd") %>% shell(translate = T)
     
     # return fitted values
-    f_est <- opt_lapgrd$file.out
-    f_act <- dir(outdir, full.names = T, pattern = '^[^(cov_)].*grd$')
+    f_out <- opt_lapgrd$file.out
+    f_out_full <- paste(outdir, f_out, sep = '/')
     
-    if (length(f_est) != length(f_act)) {
+    if (!all(file.exists(f_out_full)))
       stop('The fitted result is not as expected, check whether the parameters are wrong.')
-    }
     
     ## can be improved later
     if (opt_lapgrd$type.grd) {
-      rast(f_act) %>% as.data.table(xy = T)
+      rast(f_out_full) %>% as.data.table(xy = T)
     } else {
-      map2(f_act, file_path_sans_ext(f_est), ~fread(.x, col.names = c('x', 'y', .y))) %>% reduce(merge)
+      map2(f_out_full, file_path_sans_ext(f_out), ~fread(.x, col.names = c('x', 'y', .y))) %>% reduce(merge)
     }
   
   }
