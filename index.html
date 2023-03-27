@@ -33,7 +33,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">spInterp</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.1.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.1.1</span>
       </span>
     </div>
 
@@ -41,6 +41,18 @@
       <ul class="nav navbar-nav">
 <li>
   <a href="reference/index.html">Reference</a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Articles
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+<li>
+      <a href="articles/kfold.html">kfold</a>
+    </li>
+  </ul>
 </li>
       </ul>
 <ul class="nav navbar-nav navbar-right"></ul>
@@ -105,7 +117,7 @@
 <span><span class="co"># Compare with the R package adw</span></span>
 <span><span class="va">dd</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">cbind</a></span><span class="op">(</span><span class="va">loc</span>, value <span class="op">=</span> <span class="va">dat</span><span class="op">[</span>,<span class="fl">1</span><span class="op">]</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/system.time.html" class="external-link">system.time</a></span><span class="op">(</span><span class="op">{</span></span>
-<span>  <span class="va">r_adw</span> <span class="op">&lt;-</span> <span class="fu">adw</span><span class="fu">::</span><span class="fu">adw</span><span class="op">(</span><span class="va">dd</span>, <span class="va">range</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>, <span class="va">range</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span>, <span class="va">range</span><span class="op">[</span><span class="fl">3</span><span class="op">]</span>, <span class="va">range</span><span class="op">[</span><span class="fl">4</span><span class="op">]</span>, cdd <span class="op">=</span> <span class="fl">450</span><span class="op">*</span><span class="fl">1e3</span>, gridSize <span class="op">=</span> <span class="va">res</span><span class="op">)</span>  </span>
+<span>  <span class="va">r_adw</span> <span class="op">&lt;-</span> <span class="fu">adw</span><span class="fu">::</span><span class="fu">adw</span><span class="op">(</span><span class="va">dd</span>, <span class="va">range</span>, cdd <span class="op">=</span> <span class="fl">450</span> <span class="op">*</span> <span class="fl">1e3</span>, gridsize <span class="op">=</span> <span class="va">res</span><span class="op">)</span></span>
 <span><span class="op">}</span><span class="op">)</span></span>
 <span><span class="co">#&gt;  用户  系统  流逝 </span></span>
 <span><span class="co">#&gt; 61.55  0.21 61.75</span></span>
