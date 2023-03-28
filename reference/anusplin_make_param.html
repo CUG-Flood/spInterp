@@ -66,17 +66,18 @@
 <span>  file.alt <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  alt <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"cov"</span>, <span class="st">"spl"</span><span class="op">)</span>,</span>
 <span>  type.alt <span class="op">=</span> <span class="st">"arcinfo_grid"</span>,</span>
-<span>  type.grd <span class="op">=</span> <span class="st">"arcinfo_grid"</span>,</span>
+<span>  type.grd <span class="op">=</span> <span class="st">"xyz"</span>,</span>
 <span>  type.mask <span class="op">=</span> <span class="st">"none"</span>,</span>
 <span>  file.mask <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  cvt.lon <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">1</span><span class="op">)</span>,</span>
-<span>  cvt.lat <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">1</span><span class="op">)</span>,</span>
+<span>  cvt.lon <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">5</span><span class="op">)</span>,</span>
+<span>  cvt.lat <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">5</span><span class="op">)</span>,</span>
 <span>  cvt.alt <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">1</span><span class="op">)</span>,</span>
 <span>  cvt.coef <span class="op">=</span> <span class="fl">1000</span>,</span>
 <span>  trans.dep <span class="op">=</span> <span class="fl">0</span>,</span>
 <span>  err.wgt <span class="op">=</span> <span class="fl">0</span>,</span>
 <span>  optimize <span class="op">=</span> <span class="fl">1</span>,</span>
 <span>  smooth <span class="op">=</span> <span class="fl">1</span>,</span>
+<span>  <span class="va">...</span>,</span>
 <span>  err.cov <span class="op">=</span> <span class="fl">2</span>,</span>
 <span>  grid.pos <span class="op">=</span> <span class="fl">1</span>,</span>
 <span>  essential <span class="op">=</span> <span class="cn">TRUE</span></span>
@@ -219,13 +220,17 @@ possible values are:</p><ul><li><p><code>0</code>: fixed smoothing parameter - s
 </ul></dd>
 
 
+<dt>...</dt>
+<dd><p>ignored.</p></dd>
+
+
 <dt>err.cov</dt>
 <dd><p>test</p></dd>
 
 
 <dt>grid.pos</dt>
-<dd><p>Grid position option, a non-negative integer, possible values are:</p><ul><li><p><code>0</code>: grid points at cell corners (<strong>default</strong>)</p></li>
-<li><p><code>1</code>: grid points at cell centres</p></li>
+<dd><p>Grid position option, a non-negative integer, possible values are:</p><ul><li><p><code>0</code>: grid points at cell corners</p></li>
+<li><p><code>1</code>: grid points at cell centres (<strong>default</strong>)</p></li>
 </ul></dd>
 
 
@@ -270,15 +275,25 @@ Data points outside these limits, augmented by margins, are ignored.</p></dd>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># data(TempBrazil)</span></span></span>
-<span class="r-in"><span><span class="co"># colnames(TempBrazil) &lt;- c("lon", "lat", "temp")</span></span></span>
-<span class="r-in"><span><span class="co"># df = TempBrazil</span></span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span><span class="va">dat</span> <span class="op">&lt;-</span> <span class="va">dat_RH</span><span class="op">[</span>, <span class="fu">.</span><span class="op">(</span><span class="va">lon</span>, <span class="va">lat</span>, <span class="va">alt</span>, <span class="va">RH</span><span class="op">)</span><span class="op">]</span></span></span>
+<span class="r-in"><span><span class="va">X</span> <span class="op">&lt;-</span> <span class="va">dat</span><span class="op">[</span>, <span class="fu">.</span><span class="op">(</span><span class="va">lon</span>, <span class="va">lat</span>, <span class="va">alt</span><span class="op">)</span><span class="op">]</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">as.matrix</a></span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">Y</span> <span class="op">&lt;-</span> <span class="va">dat</span><span class="op">[</span>, <span class="fu">.</span><span class="op">(</span><span class="va">RH</span><span class="op">)</span><span class="op">]</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">as.matrix</a></span><span class="op">(</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co"># # range &lt;- c(70, 140, 15, 55)</span></span></span>
-<span class="r-in"><span><span class="co"># range &lt;- c(-78, -34, -36, 5)</span></span></span>
-<span class="r-in"><span><span class="co"># p = anusplin_make_param(df, "TempBrazil", "dem.txt", range, alt = NULL)</span></span></span>
-<span class="r-in"><span><span class="co"># str(p)</span></span></span>
-<span class="r-in"></span>
+<span class="r-in"><span><span class="va">res</span> <span class="op">&lt;-</span> <span class="fl">1</span></span></span>
+<span class="r-in"><span><span class="va">range</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">70</span>, <span class="fl">140</span>, <span class="fl">15</span>, <span class="fl">55</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">r_dem</span> <span class="op">&lt;-</span> <span class="fu"><a href="get_chinadem.html">get_chinadem</a></span><span class="op">(</span>res <span class="op">=</span> <span class="va">res</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">f_dem</span> <span class="op">&lt;-</span> <span class="st">"output/dem.asc"</span></span></span>
+<span class="r-in"><span><span class="fu">write_dem</span><span class="op">(</span><span class="va">r_dem</span>, <span class="va">f_dem</span>, digits <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">outdir</span> <span class="op">&lt;-</span> <span class="st">"output"</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu">anusplin_make_param</span><span class="op">(</span><span class="va">dat</span>, <span class="st">"RH"</span>, <span class="va">range</span>, <span class="va">res</span>, file.alt <span class="op">=</span> <span class="va">f_dem</span>, cvt.coef <span class="op">=</span> <span class="fl">1e3</span><span class="op">)</span> <span class="op">-&gt;</span> <span class="va">param</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="anusplin_write_setting.html">anusplin_write_setting</a></span><span class="op">(</span><span class="va">param</span>, <span class="va">outdir</span>, is.run <span class="op">=</span> <span class="cn">TRUE</span>, overwrite <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">anusplin_read_output</span><span class="op">(</span><span class="va">param</span><span class="op">$</span><span class="va">lapgrd</span>, <span class="va">outdir</span><span class="op">)</span> <span class="op">-&gt;</span> <span class="va">ans</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">ans</span></span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
 </code></pre></div>
     </div>
   </div>
