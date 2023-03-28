@@ -28,6 +28,9 @@
     <loc>/reference/cal_weight.html</loc>
   </url>
   <url>
+    <loc>/reference/get_chinadem.html</loc>
+  </url>
+  <url>
     <loc>/reference/index.html</loc>
   </url>
   <url>
@@ -47,6 +50,9 @@
   </url>
   <url>
     <loc>/reference/spInterp.html</loc>
+  </url>
+  <url>
+    <loc>/reference/spInterp_Tps.html</loc>
   </url>
   <url>
     <loc>/reference/spInterp_bilinear.html</loc>
