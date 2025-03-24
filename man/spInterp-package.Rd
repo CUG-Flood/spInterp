@@ -2,7 +2,6 @@
 % Please edit documentation in R/spInterp-package.R
 \docType{package}
 \name{spInterp-package}
-\alias{spInterp}
 \alias{spInterp-package}
 \title{spInterp: A toolbox for spatial interpolation of meteorogical data}
 \description{

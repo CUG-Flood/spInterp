@@ -54,7 +54,6 @@ spInterp <- function(points, dat, range, res = 1,
       .[, .(value = weighted.mean(x, w, na.rm = TRUE)), .(lon, lat)] %>% 
       { merge(grid, ., all.x = TRUE)$value }
   }, .parallel = .parallel, .progress = "text") %>% do.call(cbind, .)
-  
   list(weight = weight, coord = grid, predicted = pred) %>% set_class("spInterp")
 }
 

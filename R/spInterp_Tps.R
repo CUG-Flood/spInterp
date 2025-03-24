@@ -19,7 +19,7 @@ spInterp_Tps <- function(points, dat, range, res = 1,
   if (nrow(points) != nrow(dat)) stop("Length of points and dat should be equal!")
 
   if (is.null(Z)) ZGrid = NULL
-  
+
   grid <- query_gridInfo(range, res)
   m = Tps(points, dat, Z = Z, ...)  
   pred = predictSurface(m, grid, extrap = TRUE, ZGrid = ZGrid)
