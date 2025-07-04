@@ -220,8 +220,10 @@ createFolds <- function(y, k = 10, list = TRUE, returnTrain = FALSE) {
 }
 
 
+#' @export
 GOF <- function(yobs, ysim, w, include.cv = FALSE, include.r = TRUE) UseMethod("GOF", yobs)
 
+#' @export
 GOF.matrix <- function(yobs, ysim, w, include.cv = FALSE, include.r = TRUE) {
   obs = c(yobs)
   sim = c(as.matrix(ysim))
